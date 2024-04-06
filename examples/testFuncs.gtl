@@ -1,0 +1,25 @@
+%
+
+println yesNo(true)
+
+println trueFalse(false)
+
+println TrueFalse(false)
+
+println TRUEFALSE(false)
+
+println version()
+
+println majorVersion()
+
+println minorVersion()
+
+println revision()
+
+println currentDateTime()
+
+println homeDir()
+
+println currentDir()
+
+println red() + bold() + "Hello" + endc()

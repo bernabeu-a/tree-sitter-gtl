@@ -1,0 +1,5 @@
+%
+loop a from 1 to 4 do
+  template (a) hello2Template
+end loop
+%

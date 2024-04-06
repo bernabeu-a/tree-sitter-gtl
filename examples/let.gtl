@@ -1,0 +1,80 @@
+%
+#
+# Assignment tests
+#
+
+# integer
+let a := 3
+display a
+
+# boolean
+let a := true
+display a
+let a := false
+display a
+
+# string
+let a := "Hello !"
+display a
+
+# struct
+let a::i := 3
+let a::s := "Hello !"
+display a
+
+unlet a::s
+display a
+
+# list 
+let a := emptylist
+let a += 3
+let a += "Hello !"
+display a
+let a[0] := 4
+display a
+let a[1] := "Bye !"
+display a
+let a[0] += 1
+display a
+
+# map
+let a := emptymap
+let a["name"] := "Bob"
+let a["age"] := 18
+let a["friends"] := 5
+display a
+
+unlet a["name"]
+display a
+
+unlet a
+if not exists a then println "unlet a ok" end if
+
+# type
+let a := @int
+display a
+
+# unconstructed
+let z
+display z
+
+# unlet
+unlet z
+if not exists z then println "unlet z ok" end if
+
+# more unlet test
+let a::b::c["t"]::d := @( 1, 2, 3, 4 )
+display a
+let c := a::b::c["t"]::d
+println a::b::c["t"]::d[0]
+
+unlet a::b::c["t"]::d[1]
+display a
+
+let a::b := 1
+display a
+
+let a["cle"]::b := 1
+display a
+
+println a["cle"]::b

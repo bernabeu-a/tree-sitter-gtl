@@ -1,0 +1,69 @@
+%
+
+import "getterSetter"
+
+let c := [3 square]
+display c
+
+let c := ["Hello" firstChar]
+display c
+
+let c := [3.5 cube]
+display c
+
+let c := @(
+  @{ age : 18, height : 180, name : "Arnold" },
+  @{ age : 22, height : 170, name : "Bob"    },
+  @{ age : 29, height : 175, name : "John"   }
+)
+
+if [c alwaysHasField : "age"] then
+  println "List 1 ok"
+else
+  println "List 1 ko"
+end if
+
+let c += @{ height : 150, name : "Sally" }
+
+if [c alwaysHasField : "age"] then
+  println "List 2 ok"
+else
+  println "List 2 ko"
+end if
+
+display c
+[!c deleteAge]
+display c
+
+println [c[0] hasField: "age"]
+
+#println [c[3] hasField: "age"]
+
+let a := "OH"
+[!a thisIsAnA]
+display a
+
+let isrList := @(
+  @{
+    CATEGORY: 1,
+    NAME: "isr1"
+  },
+  @{
+    CATEGORY: 2,
+    NAME: "isr2"
+  },
+  @{
+    CATEGORY: 2,
+    NAME: "isr3"
+  },
+  @{
+    CATEGORY: 1,
+    NAME: "isr4"
+  }
+)
+
+let isr1List := [isrList isrOfCategory: 1]
+display isr1List
+
+let isr2List := [isrList isrOfCategory: 2]
+display isr2List

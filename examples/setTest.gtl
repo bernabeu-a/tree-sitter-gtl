@@ -1,0 +1,81 @@
+%
+
+let a := @! 1, 2, "no" !
+[!a add: "yes"]
+display a
+
+[!a remove: 89]
+
+let a := @! 1, 2, "no" !
+[!a remove: 2]
+display a
+
+println [a length]
+
+let a := @! 1, 2, "no", "yes" !
+let b := [a list]
+
+display b
+
+println [a contains: 1]
+println [a contains: 7]
+
+[!a remove: 1]
+
+display a
+
+let aList := @( 1, 2, 4, "Hello", 4, 2, 1 )
+display aList
+let aSet := [aList set]
+display aSet
+
+let aSet := @! 1, 2, "yes", "no" !
+let len := [aSet length]
+display len
+
+let a := @! 1, 2, 3, 4 !
+let b := @! 2,3 !
+
+println "*****"
+println a < b
+println b < a 
+println a > b
+println b > a
+println "*****"
+
+let b := a
+
+println "*****"
+println a < b
+println b < a 
+println a > b
+println b > a
+println "*****"
+
+println "*****"
+println a <= b
+println b <= a 
+println a >= b
+println b >= a
+println "*****"
+
+let aSet := @! 1, "yes", 2, "no" !
+let aList := [aSet list]
+display aList
+
+let aSet := @! 1, "yes", 2, "no" !
+let ok := [aSet contains: "yes"]
+display ok
+
+let aList := @(
+  @{ a:"hello",     b:"goodbye" },
+  @{ a:"beautiful", b:"cruel"   }
+)
+
+let set1 := [aList setBy: "a"]
+let set2 := [aList setBy: "b"]
+display set1
+display set2
+
+let elem := [aSet elementNamed: 1]
+error elem : "1 should not be part of this set"
