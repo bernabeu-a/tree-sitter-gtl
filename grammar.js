@@ -17,7 +17,7 @@ module.exports = grammar({
     rules: {
       source_file: $ => seq(
         $.generated_c,
-        repeat1(
+        repeat(
           choice(
             seq(
               "%",
@@ -926,10 +926,16 @@ module.exports = grammar({
       ),
 
       comment: _ => token(
+        choice(
           seq(
             '#',
             /.*/
+          ),
+          seq(
+            '#',
+            /[^%]*/
           )
+
       )
   }
 });
