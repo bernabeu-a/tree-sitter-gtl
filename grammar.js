@@ -1,16 +1,9 @@
 module.exports = grammar({
     name: 'gtl',
-    // extras: $ => [
-    //   $.generated_c,
-    // ],
 
     conflicts: $ => [
-      // [$.source_file],
-      // [$.gtl_template_instruction_list],
-      // [$.identifier_string],
       [$.gtl_factor],
       [$.gtl_simple_expression],
-      // [$.gtl_template_instruction],
       [$.gtl_variable],
       [$.literal_char, $.string],
       [$.literal_enum, $.identifier_string]
@@ -19,7 +12,6 @@ module.exports = grammar({
     extras: $ => [
       $.comment,
       /\s|\\\r?\n/
-      // $.generated_c
     ],
 
     rules: {
@@ -51,31 +43,9 @@ module.exports = grammar({
             ),
           )
         )
-        // $.generated_c,
-        // "%",
-        // $.template,
-        // repeat(
-        //   seq(
-        //     '%',
-        //     $.generated_c,
-        //     $.template,
-        //   )
-        // ),
-        // optional('%')
-      ),
-
-      // template: $ => /%([^%]*)%/,
-
-      template: $ => seq(
-        // token("%"),
-        $.source_template,
-        // token("%"),
       ),
 
       generated_c: _ => /[^%]*/,
-      // generated_c: _ => token(/[^%]*[^%]+/),
-
-      // test_c: _ => token(/\%\w*\%[^{}]+/),
 
       source_template: $ => seq(
           repeat($.gtl_import),
@@ -93,17 +63,6 @@ module.exports = grammar({
           $.gtl_template_instruction
         )
       ),
-
-      // gtl_template_instruction_list: $ => choice(
-      //   seq(
-      //     $.gtl_simple_instruction,
-      //     optional($.gtl_template_instruction_list)
-      //   ),
-      //   seq(
-      //     $.gtl_template_instruction,
-      //     optional($.gtl_template_instruction_list)
-      //   )
-      // ),
 
       gtl_simple_instruction: $ => choice(
         $.gtl_let_simple_instruction,
@@ -124,50 +83,52 @@ module.exports = grammar({
       gtl_let_simple_instruction: $ => seq(
         'let',
         $.gtl_variable,
-        choice(
-          seq(
-            ':=',
-            $.gtl_expression
-          ),
-          seq(
-            '+=',
-            $.gtl_expression
-          ),
-          seq(
-            '-=',
-            $.gtl_expression
-          ),
-          seq(
-            '*=',
-            $.gtl_expression
-          ),
-          seq(
-            '/=',
-            $.gtl_expression
-          ),
-          seq(
-            'mod=',
-            $.gtl_expression
-          ),
-          seq(
-            '<<=',
-            $.gtl_expression
-          ),
-          seq(
-            '>>=',
-            $.gtl_expression
-          ),
-          seq(
-            '&=',
-            $.gtl_expression
-          ),
-          seq(
-            '|=',
-            $.gtl_expression
-          ),
-          seq(
-            '^=',
-            $.gtl_expression
+        optional(
+          choice(
+            seq(
+              ':=',
+              $.gtl_expression
+            ),
+            seq(
+              '+=',
+              $.gtl_expression
+            ),
+            seq(
+              '-=',
+              $.gtl_expression
+            ),
+            seq(
+              '*=',
+              $.gtl_expression
+            ),
+            seq(
+              '/=',
+              $.gtl_expression
+            ),
+            seq(
+              'mod=',
+              $.gtl_expression
+            ),
+            seq(
+              '<<=',
+              $.gtl_expression
+            ),
+            seq(
+              '>>=',
+              $.gtl_expression
+            ),
+            seq(
+              '&=',
+              $.gtl_expression
+            ),
+            seq(
+              '|=',
+              $.gtl_expression
+            ),
+            seq(
+              '^=',
+              $.gtl_expression
+            )
           )
         )
       ),
@@ -238,11 +199,11 @@ module.exports = grammar({
         $.gtl_expression
       ),
 
-      gtl_variables_simple_instruction: $ => (
+      gtl_variables_simple_instruction: _ => (
         'variables'
       ),
 
-      gtl_librairies_simple_instruction: $ => (
+      gtl_librairies_simple_instruction: _ => (
         'librairies'
       ),
 
@@ -280,6 +241,12 @@ module.exports = grammar({
               '[',
               $.gtl_expression,
               ']',
+              optional(
+                seq(
+                  '::',
+                  $.gtl_variable
+                )
+              ),
               optional(
                 repeat1(
                   seq(
@@ -508,19 +475,14 @@ module.exports = grammar({
           repeat(
             choice(
               seq(
-                $.gtl_expression
-              ),
-              seq(
                 $.gtl_expression,
-                ","
-              )
+                optional(',')
+              ),
+              // seq(
+              //   $.gtl_expression,
+              //   ","
+              // )
             )
-            // seq(
-            //   $.gtl_expression,
-            //   optional(
-            //     ','
-            //   )
-            // )
           ),
           ')'
         ),
@@ -881,10 +843,7 @@ module.exports = grammar({
         )
       ),
 
-      // literal_enum: _ => repeat1(/[A-Za-z0-9_]/),
       literal_enum: _ => token(repeat1(/[A-Za-z0-9_]/)),
-
-      // literal_enum: _ => /[A-Za-z0-9_]*/,
 
       literal_double: _ => {
         const separator = '\'';
